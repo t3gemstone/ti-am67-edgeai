@@ -1,0 +1,71 @@
+# PSDK-Linux for EdgeAI: 10.01.00.03
+
+# Below are for osrt-libs-build. References:
+# https://git.ti.com/cgit/edgeai/meta-edgeai/tree/recipes-tisdk/ti-tidl/ti-tidl.bb?h=scarthgap
+# https://git.ti.com/cgit/edgeai/meta-edgeai/tree/recipes-tisdk/ti-tidl/ti-tidl-osrt.bb?h=scarthgap
+
+# Dependency: arm-tidl requires vision-apps libs. Make sure the vision-apps libs built first
+vision-apps-lib-build:
+  url: "https://github.com/arasnazmi/ti-vision-apps/releases/download"
+  release: "deneme"
+  sdk_ver: "11.0.0"
+
+arm-tidl:
+  url: "https://git.ti.com/git/processor-sdk-vision/arm-tidl.git"
+  tag: "REL.PSDK.ANALYTICS.11.00.00.06"
+  branch: "master"
+  commit: "57ffd817289896bffdce6da4e5f2417d7e8d07b8"
+
+concerto:
+  url: "https://git.ti.com/git/processor-sdk/concerto.git"
+  tag: "REL.PSDK.ANALYTICS.11.00.00.06"
+  branch: "main"
+  commit: "	54a9d1ee2691ba7ff22dd8f9c230e82b8b2d701d"
+
+# protobuf_ver_rel is typically the last two release numbers of protobuf_ver.
+onnxruntime:
+  url: "https://github.com/TexasInstruments/onnxruntime.git"
+  tag: "None"
+  branch: "tidl-1.15"
+  commit: "f145bec7bee26b9dfa43b3e07645ee1a5f8b8140"
+  onnx_ver: "1.15.0"
+  protobuf_ver: "3.21.12"
+  protobuf_ver_rel: "21.12"
+
+tensorflow:
+  url: "https://github.com/TexasInstruments/tensorflow.git"
+  tag: "REL.TIDL.10.00.00.03"
+  branch: "tidl-j7-2.12"
+  commit: "422156a973b23bab6b86176a245a66193dccb995"
+  tf_ver: "2.12"
+
+neo-ai-dlr:
+  url: "https://github.com/TexasInstruments/neo-ai-dlr.git"
+  tag: "TIDL_PSDK_10.0.2"
+  branch: "tidl-j7"
+  commit: "2c932cf08f81f69a205e415b2cf3227107fb7ecb"
+  dlr_ver: "1.13.0"
+
+ti-rpmsg-char:
+  url: "https://git.ti.com/git/rpmsg/ti-rpmsg-char.git"
+  tag: "0.6.7"
+  branch: "master"
+  commit: "5100a2e4a4a951e40ea0708fa78960770ec0ac33"
+
+gstreamer:
+  url: "https://gitlab.freedesktop.org/gstreamer/gstreamer"
+  tag: "None"
+  branch: "1.22.12"
+  commit: "d2c02bb704b5804ca057fc7e6c7b16b4466fd7d5"
+
+v4l2-utils:
+  url: "git://git.linuxtv.org/v4l-utils.git"
+  tag: "None"
+  branch: "stable-1.28"
+  commit: "	fc15e229d9d337e46d730f00647821adbbd58548"
+
+edgeai-app-stack:
+  url: "https://github.com/arasnazmi/edgeai-app-stack.git"
+  tag: "None"
+  branch: "11_00_00"
+  commit: "	50e343c413c34f3c9d53ca3751236ab028716cf9"

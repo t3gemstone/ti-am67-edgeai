@@ -1,0 +1,5 @@
+workarea/
+out/
+*.patch
+.cache/
+.cmake/

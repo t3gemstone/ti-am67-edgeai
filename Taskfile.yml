@@ -1,0 +1,130 @@
+# T3 Foundation Gemstone Project [t3gemstone.org]
+# SPDX-License-Identifier: Apache-2.0
+
+version: '3'
+
+vars:
+  WORKDIR: '{{ .WORKDIR | default "/home/workdir" }}'
+  SDK_VER: '{{ .SDK_VER | default "11_00_00" }}'
+
+dotenv: ['utils/.env']
+
+tasks:
+
+  default:
+    silent: true
+    cmds:
+      - task --list-all --summary
+      - echo -e "\nEnvironment:\n"
+      - echo "  WORKDIR          = '{{ .WORKDIR }}'"
+      - echo "  SDK_VER          = '{{ .SDK_VER }}'"
+      - echo ""
+
+  box:
+    desc: Enter Distrobox's Ubuntu 22.04 image to build debs&whls
+    cmds:
+      - docker build --platform linux/arm64 -f Dockerfile -t ti-am67-edgeai:latest .
+      - docker run -it --rm -v ${PWD}:/root --env SDK_VER="{{ .SDK_VER }}" --privileged --network host ti-am67-edgeai:latest bash -c "cd /root && exec bash"
+
+  destroy:
+    prompt: This is a dangerous command... Do you want to continue?
+    desc: Destroy everything including docker images
+    cmds:
+      - distrobox stop ti-am67-edgeai --yes || true
+      - distrobox rm ti-am67-edgeai --force || true
+      - sudo docker stop ti-am67-edgeai || true
+      - sudo docker rmi ti-am67-edgeai || true
+
+
+  build:vision_lib:
+    cmds:
+      - mkdir -p workarea
+      - $WORKDIR/scripts/init_setup.sh
+      - cd $WORKDIR/workarea/sdk/sdk_builder && SOC=j722s BASE_IMAGE=ubuntu:22.04 ./vision_apps_build.sh
+
+  build:onnxrt:
+    cmds:
+      - mkdir -p workarea
+      - $WORKDIR/scripts/onnxrt_prepare.sh
+      - $WORKDIR/scripts/onnxrt_build.sh
+      - $WORKDIR/scripts/onnxrt_package.sh
+
+  build:tflite:
+    cmds:
+      - mkdir -p workarea
+      - $WORKDIR/scripts/tflite_prepare.sh
+      - $WORKDIR/scripts/tflite_build.sh
+      - $WORKDIR/scripts/tflite_whl_build.sh
+      - $WORKDIR/scripts/tflite_package.sh
+
+  build:dlr:
+    cmds:
+      - mkdir -p workarea
+      - $WORKDIR/scripts/dlr_prepare.sh
+      - $WORKDIR/scripts/dlr_build.sh
+      - $WORKDIR/scripts/dlr_package.sh
+  build:tidl:
+    cmds:
+      - mkdir -p workarea
+      - $WORKDIR/scripts/tidl_prepare.sh
+      - $WORKDIR/scripts/tidl_build.sh
+      - $WORKDIR/scripts/tidl_package.sh
+
+  install:debs:
+    cmds:
+      - dpkg -i $WORKDIR/out/*.deb
+
+  install:whls:
+    cmds:
+      - pip3 install $WORKDIR/out/*.whl
+
+  install:all:
+    cmds:
+      - task install:debs
+      - task install:whls
+
+  build:edgeai_debs:
+    cmds:
+      - $WORKDIR/scripts/edgeai_prepare.sh
+      - $WORKDIR/scripts/edgeai_build_debs.sh
+
+  build:v4l2:
+    cmds:
+      - $WORKDIR/scripts/v4l2_prepare.sh
+      - $WORKDIR/scripts/v4l2_build.sh
+      - $WORKDIR/scripts/v4l2_package.sh
+
+  build:gstreamer:
+    cmds:
+      - $WORKDIR/scripts/gstreamer_prepare.sh
+      - $WORKDIR/scripts/gstreamer_build.sh
+      - $WORKDIR/scripts/gstreamer_package.sh
+      - task install:debs
+    
+  build:rpmsg:
+    cmds:
+      - $WORKDIR/scripts/rpmsg_prepare.sh
+      - $WORKDIR/scripts/rpmsg_build.sh
+      - $WORKDIR/scripts/rpmsg_package.sh
+
+  build:t3_edgeai_dev:
+    cmds:
+      - $WORKDIR/scripts/t3_edgeai_dev_package.sh
+    
+  build:all:
+    desc: Build edgeai debs
+    cmds: 
+      - mkdir -p out
+      - mkdir -p workarea
+      - task build:vision_lib
+      - task build:rpmsg
+      - task build:onnxrt
+      - task build:tflite
+      - task build:dlr
+      - task install:all
+      - task build:tidl
+      - task build:v4l2
+      - task build:gstreamer
+      - task install:all
+      - task build:edgeai_debs
+      - task build:t3_edgeai_dev
