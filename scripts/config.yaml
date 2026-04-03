@@ -65,7 +65,7 @@ v4l2-utils:
   commit: "	fc15e229d9d337e46d730f00647821adbbd58548"
 
 edgeai-app-stack:
-  url: "https://github.com/arasnazmi/edgeai-app-stack.git"
+  url: "https://github.com/t3gemstone/edgeai-app-stack.git"
   tag: "None"
   branch: "11_00_00"
-  commit: "	50e343c413c34f3c9d53ca3751236ab028716cf9"
+  commit: "	2dae2c85938afb24156ea5b07634f7220f7679cc"
