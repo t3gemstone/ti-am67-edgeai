@@ -4,15 +4,8 @@ FROM --platform=linux/${ARCH} ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV WORKDIR=/root
 ENV SOC=j722s
-ENV LDFLAGS="-L/usr/include/tflite_2.12/farmhash-build \
--L/usr/include/tflite_2.12/pthreadpool-build \
--L/usr/include/tflite_2.12/ruy-build/ruy \
--L/usr/include/tflite_2.12/pthreadpool $LDFLAGS"
 
-ENV LD_LIBRARY_PATH="/usr/include/tflite_2.12/farmhash-build:\
-/usr/include/tflite_2.12/pthreadpool-build:\
-/usr/include/tflite_2.12/ruy-build/ruy:\
-/usr/include/tflite_2.12/pthreadpool:$LD_LIBRARY_PATH"
+ARG ARCH=arm64
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -117,10 +110,13 @@ RUN pip install vcstool --force-reinstall && \
 # -------------------------------------------------------------------------
 # yq
 # -------------------------------------------------------------------------
-RUN wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_arm64 \
+RUN wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_${ARCH} \
     -O /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
 RUN pip3 install meson pybind11 numpy
+
+RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo \
+    && chmod a+x /usr/local/bin/repo
 
 CMD ["bash"]
