@@ -30,8 +30,6 @@ tasks:
     prompt: This is a dangerous command... Do you want to continue?
     desc: Destroy everything including docker images
     cmds:
-      - distrobox stop ti-am67-edgeai --yes || true
-      - distrobox rm ti-am67-edgeai --force || true
       - sudo docker stop ti-am67-edgeai || true
       - sudo docker rmi ti-am67-edgeai || true
 
