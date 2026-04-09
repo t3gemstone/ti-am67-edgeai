@@ -82,6 +82,7 @@ tasks:
     cmds:
       - task install:debs
       - task install:whls
+      - ldconfig
 
   build:edgeai_debs:
     cmds:

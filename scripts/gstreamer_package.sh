@@ -64,7 +64,7 @@ Version: ${PKG_VERSION}
 Section: libdevel
 Priority: optional
 Architecture: ${PKG_ARCHITECTURE}
-Depends: libglib2.0-dev, pkg-config
+Depends: libglib2.0-dev, pkg-config, libasound2, libpulse0, libxv1
 Maintainer: ${PKG_MAINTAINER}
 Description: GStreamer multimedia framework for ARM64 architecture.
 EOF

@@ -43,14 +43,14 @@ PYTHON=python3 BUILD_NUM_JOBS="${BUILD_NUM_JOBS}" "${BUILD_SCRIPT}" aarch64
 
 log_info "Moving wheel to output directory..."
 
-whl_files=("${TF_DIR}"/tflite_runtime-*.whl)
+whl_files=("${TF_DIR}"/tensorflow/lite/tools/pip_package/gen/tflite_pip/python3/dist/tflite_runtime-*.whl)
 if [ ! -e "${whl_files[0]}" ]; then
     log_error "No tflite_runtime wheel found in: ${TF_DIR}"
     exit 1
 fi
 
 mkdir -p "${OUT_DIR}"
-mv "${whl_files[@]}" "${OUT_DIR}/"
+cp "${whl_files[@]}" "${OUT_DIR}/"
 log_success "Wheel(s) moved to: ${OUT_DIR}"
 
 chmod -R a+w "${WORKDIR}/workarea"

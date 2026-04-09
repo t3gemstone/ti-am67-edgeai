@@ -16,7 +16,7 @@ source "${UTILS_SCRIPT}"
 
 WORKAREA="${WORKDIR}/workarea"
 ONNX_DIR="${WORKAREA}/onnxruntime"
-PATCH_TOOLCHAIN="${WORKAREA}/patches/onnxruntime/tool.cmake"
+PATCH_TOOLCHAIN="${WORKDIR}/patches/onnxruntime/tool.cmake"
 
 protobuf_ver=$(get_yaml_value "onnxruntime" "protobuf_ver")
 protobuf_ver_rel=$(get_yaml_value "onnxruntime" "protobuf_ver_rel")

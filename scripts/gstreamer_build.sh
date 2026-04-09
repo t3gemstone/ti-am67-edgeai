@@ -18,9 +18,8 @@ meson setup builddir \
   --prefix=/usr/local \
   --wrap-mode=nofallback \
   -Dexamples=disabled \
-  -Dtests=disabled \
-  -Dugly=disabled
-
+  -Dtests=disabled 
+  
 while true; do
     meson compile -C builddir
     RET=$?

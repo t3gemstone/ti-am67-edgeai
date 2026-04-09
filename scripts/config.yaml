@@ -68,4 +68,4 @@ edgeai-app-stack:
   url: "https://github.com/t3gemstone/edgeai-app-stack.git"
   tag: "None"
   branch: "11_00_00"
-  commit: "	2dae2c85938afb24156ea5b07634f7220f7679cc"
+  commit: "81755e9efe299710c649b96df3c1f199708d3191"

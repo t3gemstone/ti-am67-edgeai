@@ -25,7 +25,7 @@ source "${UTILS_SCRIPT}"
 WORKAREA="${WORKDIR}/workarea"
 TF_DIR="${WORKAREA}/tensorflow"
 
-PATCH_SRC="${WORKAREA}/patches/tensorflow/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh"
+PATCH_SRC="${WORKDIR}/patches/tensorflow/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh"
 PATCH_DST="${TF_DIR}/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh"
 
 # --- Timer Start ---

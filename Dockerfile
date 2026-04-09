@@ -17,8 +17,10 @@ ENV LD_LIBRARY_PATH="/usr/include/tflite_2.12/farmhash-build:\
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
+        automake \
         bash \
         binfmt-support \
+        bison \
         build-essential \
         ca-certificates \
         ccache \
@@ -30,32 +32,33 @@ RUN apt-get update && \
         diffstat \
         dosfstools \
         file \
+        flex \ 
         gawk \
         gcc \
         git \
         iputils-ping \
         libacl1 \
+        libdrm-dev \
+        libegl-dev \
         libelf-dev \
+        libgbm-dev \
+        libgles2-mesa-dev \
+        libglm-dev \
         liblz4-tool \
         libncurses-dev \
+        libopencv-dev \
         libsdl2-2.0-0 \
         libsdl2-dev \
         libssl-dev \
         libtool \
-        libgles2-mesa-dev \
-        libegl-dev \
-        libgbm-dev \
-        libglm-dev \
-        libdrm-dev \
         libyaml-cpp-dev \
-        libopencv-dev \
-        automake \
         locales \
         nano \
         ninja-build \
-        pkg-config \
         openssl \
         parted \
+        pkg-config \
+        pybind11-dev \
         python3 \
         python3-git \
         python3-jinja2 \
@@ -80,54 +83,8 @@ RUN apt-get update && \
         xterm \
         xz-utils \
         zstd \
-        flex \ 
-        bison \
     && locale-gen en_US.UTF-8
-#  Copyright (C) 2024 Texas Instruments Incorporated - http://www.ti.com/
-#
-#  Redistribution and use in source and binary forms, with or without
-#  modification, are permitted provided that the following conditions
-#  are met:
-#
-#    Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-#
-#    Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the
-#    distribution.
-#
-#    Neither the name of Texas Instruments Incorporated nor the names of
-#    its contributors may be used to endorse or promote products derived
-#    from this software without specific prior written permission.
-#
-#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-#  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-#  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-#  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-#  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-#  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-#  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-#  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-#  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# -------------------------------------------------------------------------
-# Distrobox notları:
-#   - ENTRYPOINT kaldırıldı: distrobox kendi init sürecini yönetir
-#   - Root varsayımları kaldırıldı: distrobox host kullanıcısını kullanır
-#   - distrobox entegrasyon paketleri eklendi (sudo, passwd, vb.)
-#   - WORKDIR /root yerine /home kullanımına uygun hale getirildi
-#   - ARG'lar build sırasında --build-arg ile geçirilmelidir:
-#       ARCH, BASE_IMAGE, RPMSG_VER
-# -------------------------------------------------------------------------
-
-ARG ARCH=arm64
-
-# -------------------------------------------------------------------------
-# Kitware APT deposu ve CMake 3.29.6
-# -------------------------------------------------------------------------
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | \
     gpg --dearmor -o /usr/share/keyrings/kitware-archive-keyring.gpg && \
     echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' \
@@ -164,6 +121,6 @@ RUN wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_${AR
     -O /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
-RUN pip3 install meson
+RUN pip3 install meson pybind11 numpy
 
 CMD ["bash"]
