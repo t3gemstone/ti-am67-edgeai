@@ -117,7 +117,7 @@ RUN pip install vcstool --force-reinstall && \
 # -------------------------------------------------------------------------
 # yq
 # -------------------------------------------------------------------------
-RUN wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_${ARCH} \
+RUN wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_arm64 \
     -O /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
