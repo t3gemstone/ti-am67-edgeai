@@ -5,3 +5,4 @@ out/
 .cmake/
 .repoconfig
 .repo_.gitconfig.json
+.bash_history
