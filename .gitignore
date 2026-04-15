@@ -3,3 +3,5 @@ out/
 *.patch
 .cache/
 .cmake/
+.repoconfig
+.repo_.gitconfig.json

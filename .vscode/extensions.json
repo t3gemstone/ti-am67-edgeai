@@ -5,14 +5,8 @@
         "mads-hartmann.bash-ide-vscode",
         "spywhere.guides",
         "ms-vscode.hexeditor",
-        "daylerees.rainglow",
-        "llvm-vs-code-extensions.vscode-clangd",
-        "ms-vscode.cpptools",
-        "ms-vscode.cpptools-extension-pack",
         "jetpack-io.devbox",
         "task.vscode-task",
-        "ms-python.vscode-pylance",
-        "ms-python.debugpy",
         "tamasfe.even-better-toml",
         "henriiik.vscode-sort"
     ]

@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-readonly TITLE="🚀 TI AM67A EdgeAI"
+readonly TITLE="🚀 T3 Gemstone O1 EdgeAI"
 readonly DOCS_URL="https://docs.t3gemstone.org"
 readonly COMMUNITY_URL="https://community.t3gemstone.org"
 
@@ -109,7 +109,7 @@ check_requirements() {
     start_task requirements
     for i in "curl" "git" "sudo"; do
         if ! has "$i"; then
-            echo "$i must be installed to start the setup! For Help: $DOCS_URL/sdk"
+            error "$i must be installed to start the setup! For Help: $DOCS_URL/sdk"
             fail_task
             return 1
         fi
@@ -176,10 +176,10 @@ main() {
     intro_msg
     delay 3
     check_requirements
+    install_devbox
     install_docker
     install_qemu_packages
     set_docker_perms
-    install_devbox
     next_steps_msg
 }
 

@@ -60,7 +60,6 @@ RUN apt-get update && \
         python3-pip \
         python3-subunit \
         qemu-system-arm \
-        qemu-system-x86 \
         qemu-user \
         qemu-user-static \
         sed \
@@ -101,7 +100,8 @@ RUN sed -i 's/pam_unix\.so obscure/pam_unix.so minlen=1 obscure/' /etc/pam.d/com
 RUN echo gemstone > /etc/hostname
 
 # Taskfile Installation
-RUN curl --location https://taskfile.dev/install.sh | sudo sh -s -- -d -b /usr/local/bin && \
+RUN curl --location https://github.com/go-task/task/releases/download/v3.50.0/task_3.50.0_linux_arm64.deb --output ~/task_3.50.0_linux_arm64.deb && \
+    sudo apt install ~/task_3.50.0_linux_arm64.deb && \
     task --completion bash > /etc/bash_completion.d/task
 
 # VCS Repotool

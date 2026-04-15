@@ -78,6 +78,7 @@
         ".distrobox/**": true,
         "build/**": true,
         "src/**": true,
-        "build/debos/**": true,
+        "out/**": true,
+        "workarea/**": true,
     }
 }

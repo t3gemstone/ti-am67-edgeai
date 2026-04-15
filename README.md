@@ -9,7 +9,6 @@
 # TI AM67A EdgeAI
 
  [![T3 Foundation](./.meta/t3-foundation.svg)](https://www.t3vakfi.org/en) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Built with Devbox](https://www.jetify.com/img/devbox/shield_galaxy.svg)](https://www.jetify.com/devbox/docs/contributor-quickstart/) [![Documentation](https://img.shields.io/badge/Documentation-gray?style=flat&logo=Mintlify)](https://docs.t3gemstone.org)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/t3gemstone/ti-am67-edgeai)
 
 ## What is it?
 
@@ -58,6 +57,7 @@ root@host:~ task box
 root@host:~ task default
 
 # Builds all .deb and .whl packages
+root@host:~ task build:init
 root@host:~ task build:all
 ```
 ### Screencast
@@ -68,7 +68,8 @@ root@host:~ task build:all
 
 #### 1. First Installation of Docker
 
-Docker is installed on your system via the `./setup.sh` command. If you are installing Docker for the first time, you must log out and log in again after the installation is complete.
+Docker is installed on your system via the `./setup.sh` command. If you are installing Docker for the first time,
+you must log out and log in again after the installation is complete.
 
 #### 2. Removal of Docker Image
 

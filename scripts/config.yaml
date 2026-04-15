@@ -6,8 +6,8 @@
 
 # Dependency: arm-tidl requires vision-apps libs. Make sure the vision-apps libs built first
 vision-apps-lib-build:
-  url: "https://github.com/arasnazmi/ti-vision-apps/releases/download"
-  release: "deneme"
+  url: "https://github.com/t3gemstone/ti-vision-apps/releases/download"
+  release: "master"
   sdk_ver: "11.0.0"
 
 arm-tidl:

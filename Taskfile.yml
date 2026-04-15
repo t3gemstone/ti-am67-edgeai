@@ -6,8 +6,9 @@ version: '3'
 vars:
   WORKDIR: '{{ .WORKDIR | default "/home/workdir" }}'
   SDK_VER: '{{ .SDK_VER | default "11_00_00" }}'
+  PROFILE: 'release'
 
-dotenv: ['utils/.env']
+dotenv: ['.env']
 
 tasks:
 
@@ -25,7 +26,14 @@ tasks:
     cmds:
       - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - docker build --platform linux/arm64 -f Dockerfile -t ti-am67-edgeai:latest .
-      - docker run -it --rm -v ${PWD}:/root --env SDK_VER="{{ .SDK_VER }}" --privileged --network host ti-am67-edgeai:latest bash -c "cd /root && exec bash"
+      - |
+        docker run -it --rm -v ${PWD}:/root
+          --env SDK_VER="{{ .SDK_VER }}"
+          --device /dev/kvm
+          --security-opt label=disable
+          --privileged
+          --network host ti-am67-edgeai:latest
+          bash -c "cd /root && exec bash"
 
   destroy:
     prompt: This is a dangerous command... Do you want to continue?
@@ -33,7 +41,6 @@ tasks:
     cmds:
       - sudo docker stop ti-am67-edgeai || true
       - sudo docker rmi ti-am67-edgeai || true
-
 
   build:vision_lib:
     desc: Build vision library for AM67A
@@ -66,6 +73,7 @@ tasks:
       - $WORKDIR/scripts/dlr_prepare.sh
       - $WORKDIR/scripts/dlr_build.sh
       - $WORKDIR/scripts/dlr_package.sh
+
   build:tidl:
     desc: Build TIDL for AM67A
     cmds:
@@ -111,7 +119,7 @@ tasks:
       - $WORKDIR/scripts/gstreamer_build.sh
       - $WORKDIR/scripts/gstreamer_package.sh
       - task install:debs
-    
+
   build:rpmsg:
     desc: Build RPMsg for AM67A
     cmds:
@@ -123,7 +131,7 @@ tasks:
     desc: Build t3_edgeai_dev package for AM67A
     cmds:
       - $WORKDIR/scripts/t3_edgeai_dev_package.sh
-    
+
   build:all:
     desc: Build edgeai debs
     cmds: 
