@@ -126,10 +126,10 @@ tasks:
       - $WORKDIR/scripts/rpmsg_build.sh
       - $WORKDIR/scripts/rpmsg_package.sh
 
-  build:t3_edgeai_dev:
-    desc: Build t3_edgeai_dev package for AM67A
+  build:t3_gem_o1_edgeai_debs:
+    desc: Build t3_gem_o1_edgeai_debs package for AM67A
     cmds:
-      - $WORKDIR/scripts/t3_edgeai_dev_package.sh
+      - $WORKDIR/scripts/t3_gem_o1_edgeai_debs.sh
 
   build:all:
     desc: Build edgeai debs
@@ -147,4 +147,4 @@ tasks:
       - task build:gstreamer
       - task install:all
       - task build:edgeai_debs
-      - task build:t3_edgeai_dev
+      - task build:t3_gem_o1_edgeai_debs

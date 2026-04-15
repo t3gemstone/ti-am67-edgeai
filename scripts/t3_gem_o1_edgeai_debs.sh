@@ -31,8 +31,8 @@ libopencv-dev, libncurses-dev, python3-pip, libegl1, libgles2, libgbm1, libgudev
 . /etc/os-release
 OS_NAME="${ID}_${VERSION_ID//./_}"
 
-DST_DIR="${WORKAREA}/t3-edgeai-dev-${OS_NAME}_aarch64"
-DEB_NAME="t3-edgeai-dev-${OS_NAME}_aarch64.deb"
+DST_DIR="${WORKAREA}/t3-gem-o1-edgeai-${OS_NAME}_aarch64"
+DEB_NAME="t3-gem-o1-edgeai-${OS_NAME}_aarch64.deb"
 
 if [ ! -d "${APP_STACK_DIR}" ]; then
     log_error "edgeai-app-stack directory not found: ${APP_STACK_DIR}"
@@ -48,7 +48,7 @@ fi
 
 SECONDS=0
 
-log_info "Assembling t3-edgeai-dev package..."
+log_info "Assembling t3-gem-o1-edgeai package..."
 log_info "App stack  : ${APP_STACK_DIR}"
 log_info "Staging dir: ${DST_DIR}"
 log_info "Output dir : ${OUT_DIR}"
@@ -82,8 +82,8 @@ cp "${OUT_DIR}"/*.whl "${DST_DIR}/opt/whl_packages/"
 chmod -x "${DST_DIR}/opt/whl_packages/"*.whl
 log_success "Python wheels copied."
 
-log_info "Writing t3-edgeai-env script..."
-cat > "${DST_DIR}/opt/t3-edgeai-env" <<'EOF'
+log_info "Writing t3-gem-o1-edgeai-env script..."
+cat > "${DST_DIR}/opt/t3-gem-o1-edgeai-env" <<'EOF'
 #!/bin/bash
 export CPLUS_INCLUDE_PATH=/usr/local/include/gstreamer-1.0:${CPLUS_INCLUDE_PATH:-}
 export LIBRARY_PATH=/usr/local/lib/python3.10/dist-packages/dlr:${LIBRARY_PATH:-}
@@ -101,12 +101,12 @@ export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h(edge-ai)\[\03
 echo -e "\033[1;32m[INFO] T3 EdgeAI environment successfully loaded!\033[0m"
 echo -e "\033[1;34mSOC: ${SOC} | DEVICE: ${DEVICE_NAME} | SDK: ${EDGEAI_SDK_VERSION}\033[0m"
 EOF
-chmod +x "${DST_DIR}/opt/t3-edgeai-env"
-log_success "t3-edgeai-env written."
+chmod +x "${DST_DIR}/opt/t3-gem-o1-edgeai-env"
+log_success "t3-gem-o1-edgeai-env written."
 
 log_info "Writing DEBIAN/control..."
 cat > "${DST_DIR}/DEBIAN/control" <<EOF
-Package: t3-edgeai-dev
+Package: t3-gem-o1-edgeai
 Version: ${PKG_VERSION}
 Section: misc
 Priority: optional
