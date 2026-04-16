@@ -7,7 +7,7 @@ if [ ! -f /.dockerenv ]; then
 fi
 
 current_dir=$(pwd)
-NPROC=7
+NPROC=1
 
 cd $WORKDIR/workarea/gstreamer
 

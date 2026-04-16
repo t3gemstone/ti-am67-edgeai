@@ -57,9 +57,9 @@ root@host:~ task box
 root@host:~ task default
 
 # Builds all .deb and .whl packages
-root@host:~ task build:init
-root@host:~ task build:all
+root@host:~ ./build-all.sh
 ```
+
 ### Screencast
 
 [![asciicast](https://asciinema.org/a/KDwPPlCV2wxzpwDB4sLseW2X9.svg)](https://asciinema.org/a/KDwPPlCV2wxzpwDB4sLseW2X9)

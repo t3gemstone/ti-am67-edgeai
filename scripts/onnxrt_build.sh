@@ -16,7 +16,7 @@ source "${UTILS_SCRIPT}"
 
 ONNX_DIR="${WORKDIR}/workarea/onnxruntime"
 
-NPROC=$(( $(nproc) > 1 ? $(nproc) - 1 : 1 ))
+NPROC=1
 
 protobuf_ver=$(get_yaml_value "onnxruntime" "protobuf_ver")
 if [ -z "${protobuf_ver}" ]; then

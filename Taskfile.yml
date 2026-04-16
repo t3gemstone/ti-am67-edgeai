@@ -133,7 +133,7 @@ tasks:
 
   build:all:
     desc: Build edgeai debs
-    cmds: 
+    cmds:
       - mkdir -p out
       - mkdir -p workarea
       - task build:vision_lib

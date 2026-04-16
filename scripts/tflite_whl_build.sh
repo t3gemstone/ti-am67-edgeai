@@ -16,7 +16,7 @@ TF_DIR="${WORKDIR}/workarea/tensorflow"
 OUT_DIR="${WORKDIR}/out"
 BUILD_SCRIPT="${TF_DIR}/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh"
 
-BUILD_NUM_JOBS=$(( $(nproc) > 1 ? $(nproc) - 1 : 1 ))
+BUILD_NUM_JOBS=1
 
 if [ ! -d "${TF_DIR}" ]; then
     log_error "TensorFlow source directory not found: ${TF_DIR}"

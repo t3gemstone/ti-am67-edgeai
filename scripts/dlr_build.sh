@@ -15,7 +15,7 @@ if [ -z "${WORKDIR:-}" ]; then
     exit 1
 fi
 
-NPROC=$(( $(nproc) > 1 ? $(nproc) - 1 : 1 ))
+NPROC=1
 
 TIDL_RT_PATH=$(readlink -f "${WORKDIR}/workarea/arm-tidl/rt")
 BUILD_DIR="${WORKDIR}/workarea/neo-ai-dlr/build"

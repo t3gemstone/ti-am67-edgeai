@@ -16,7 +16,7 @@ source "${WORKDIR}/scripts/logging.sh"
 V4L2_DIR="${WORKDIR}/workarea/v4l2-utils"
 BUILD_DIR="${V4L2_DIR}/build"
 
-NPROC=$(( $(nproc) > 1 ? $(nproc) - 1 : 1 ))
+NPROC=1
 
 if [ ! -d "${V4L2_DIR}" ]; then
     log_error "v4l2-utils source directory not found: ${V4L2_DIR}"

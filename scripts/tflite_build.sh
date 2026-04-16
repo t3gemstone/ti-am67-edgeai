@@ -18,7 +18,7 @@ TF_DIR="${WORKDIR}/workarea/tensorflow"
 BUILD_DIR="${TF_DIR}/tflite_build"
 SOURCE_DIR="${TF_DIR}/tensorflow/lite"
 
-NPROC=$(( $(nproc) > 1 ? $(nproc) - 1 : 1 ))
+NPROC=1
 
 if [ ! -d "${TF_DIR}" ]; then
     log_error "TensorFlow source directory not found: ${TF_DIR}"

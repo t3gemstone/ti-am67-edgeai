@@ -21,6 +21,7 @@ PKG_VERSION="11.0.0"
 PKG_ARCHITECTURE="arm64"
 PKG_MAINTAINER="T3 Gemstone Project Development Team <support@t3gemstone.org>"
 PKG_DESCRIPTION="T3 Gemstone Project - Edge AI Utilities and Modules"
+NPROC=1
 
 CMAKE_PROJECTS=(
     "edgeai-apps-utils"
@@ -90,8 +91,8 @@ for PROJECT in "${CMAKE_PROJECTS[@]}"; do
     log_info "[2/4] Running CMake configuration..."
     cmake -DTARGET_FS="" ..
 
-    log_info "[3/4] Compiling with $(nproc) jobs..."
-    make -j"$(nproc)"
+    log_info "[3/4] Compiling with ${NPROC} jobs..."
+    make -j${NPROC}
 
     log_info "[4/4] Installing into staging directory..."
     INSTALL_DIR="${PROJECT_PATH}/build/_install"
