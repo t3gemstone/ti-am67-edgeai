@@ -7,3 +7,4 @@ build/
 .repoconfig
 .repo_.gitconfig.json
 .bash_history
+.wget-hsts
