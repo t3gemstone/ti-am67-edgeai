@@ -49,7 +49,7 @@ start_build() {
 
             count=$((count + 1))
             echo "$count" > "$count_file"
-            if [ "$count" -ge 10 ] && [ "$1" != "install:all" ]; then
+            if [ "$count" -ge 10 ]; then
                 echo "==============================="
                 echo "Skipping build for $1 after $count failed attempts"
                 echo "==============================="

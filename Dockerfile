@@ -46,6 +46,8 @@ RUN apt-get update && \
         libssl-dev \
         libtool \
         libyaml-cpp-dev \
+        libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev \
         locales \
         nano \
         ninja-build \

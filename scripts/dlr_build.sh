@@ -38,16 +38,18 @@ log_info "Source dir : ${SOURCE_DIR}"
 log_info "TIDL RT    : ${TIDL_RT_PATH}"
 log_info "Build dir  : ${BUILD_DIR}"
 
-rm -rf "${BUILD_DIR}"
-mkdir -p "${BUILD_DIR}"
-cd "${BUILD_DIR}"
-
-cmake \
-    -DUSE_TIDL=ON \
-    -DUSE_TIDL_RT_PATH="${TIDL_RT_PATH}" \
-    -DDLR_BUILD_TESTS=OFF \
-    -DCMAKE_TOOLCHAIN_FILE="${SOURCE_DIR}/cmake/aarch64-linux-gcc-native.cmake" \
-    "${SOURCE_DIR}"
+if [ ! -d "${BUILD_DIR}" ]; then
+    mkdir -p "${BUILD_DIR}"
+    cd "${BUILD_DIR}"
+    cmake \
+        -DUSE_TIDL=ON \
+        -DUSE_TIDL_RT_PATH="${TIDL_RT_PATH}" \
+        -DDLR_BUILD_TESTS=OFF \
+        -DCMAKE_TOOLCHAIN_FILE="${SOURCE_DIR}/cmake/aarch64-linux-gcc-native.cmake" \
+        "${SOURCE_DIR}"
+else
+    cd "${BUILD_DIR}"
+fi
 
 make -j"${NPROC}"
 

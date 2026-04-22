@@ -24,7 +24,6 @@ tasks:
   box:
     desc: Enter Distrobox's Ubuntu 22.04 image to build debs&whls
     cmds:
-      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - docker build --platform linux/arm64 -f Dockerfile -t ti-am67-edgeai:latest .
       - docker run -it --rm -v ${PWD}:/root
           --env SDK_VER="{{ .SDK_VER }}"

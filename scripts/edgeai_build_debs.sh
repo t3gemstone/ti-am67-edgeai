@@ -84,12 +84,15 @@ for PROJECT in "${CMAKE_PROJECTS[@]}"; do
     cd "${PROJECT_PATH}"
 
     log_info "[1/4] Preparing build directory..."
-    rm -rf build
-    mkdir build
-    cd build
-
-    log_info "[2/4] Running CMake configuration..."
-    cmake -DTARGET_FS="" ..
+    
+    if [ ! -d build ]; then
+        mkdir build
+        cd build
+        log_info "[2/4] Running CMake configuration..."
+        cmake -DTARGET_FS="" ..
+    else
+        cd build
+    fi
 
     log_info "[3/4] Compiling with ${NPROC} jobs..."
     make -j${NPROC}
@@ -125,10 +128,13 @@ fi
 cd "${GST_PROJECT_PATH}"
 
 log_info "[1/4] Cleaning previous build artifacts..."
-rm -rf "${GST_BUILD_DIR}" "${GST_DEB_DIR}"
+# rm -rf "${GST_BUILD_DIR}" "${GST_DEB_DIR}"
 
 log_info "[2/4] Running Meson configuration..."
-meson setup build --prefix=/usr/local -Dpkg_config_path=pkgconfig
+
+if [ ! -d "${GST_BUILD_DIR}" ]; then
+    meson setup build --prefix=/usr/local -Dpkg_config_path=pkgconfig
+fi
 
 log_info "[3/4] Compiling with Ninja..."
 ninja -C build
