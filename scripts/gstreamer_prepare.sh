@@ -63,18 +63,24 @@ for patch_file in "${PATCH_FILES[@]}"; do
     patch_url="${PATCH_BASE_URL}/${patch_file}?h=${PATCH_BRANCH}"
 
     log_info "[${index}/${total}] Downloading: ${patch_file}"
-    if ! wget --quiet --show-progress -O "${patch_file}" "${patch_url}"; then
-        log_error "Download failed: ${patch_url}"
-        exit 1
-    fi
 
-    log_info "[${index}/${total}] Applying: ${patch_file}"
-    if ! patch -p1 < "${patch_file}"; then
-        log_error "Failed to apply patch: ${patch_file}"
-        exit 1
-    fi
+    while true :
+    do
+        if ! wget --quiet --show-progress -O "${patch_file}" "${patch_url}";
+        then
+            log_info "Download failed: ${patch_url}. Retrying in 3 seconds..."
+            sleep 3
+            continue
+        else
+            log_info "[${index}/${total}] Applying: ${patch_file}"
+            if ! patch -p1 < "${patch_file}"; then
+                log_error "Failed to apply patch: ${patch_file}"
+                exit 1
+            fi
+            break
+        fi
+    done
 
-    log_success "[${index}/${total}] Applied: ${patch_file}"
 done
 
 duration=${SECONDS}

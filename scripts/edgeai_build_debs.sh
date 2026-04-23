@@ -84,7 +84,7 @@ for PROJECT in "${CMAKE_PROJECTS[@]}"; do
     cd "${PROJECT_PATH}"
 
     log_info "[1/4] Preparing build directory..."
-    
+
     if [ ! -d build ]; then
         mkdir build
         cd build
@@ -128,14 +128,11 @@ fi
 cd "${GST_PROJECT_PATH}"
 
 log_info "[1/4] Cleaning previous build artifacts..."
-# rm -rf "${GST_BUILD_DIR}" "${GST_DEB_DIR}"
+rm -rf "${GST_BUILD_DIR}" "${GST_DEB_DIR}"
 
 log_info "[2/4] Running Meson configuration..."
 
-if [ ! -d "${GST_BUILD_DIR}" ]; then
-    meson setup build --prefix=/usr/local -Dpkg_config_path=pkgconfig
-fi
-
+meson setup build --prefix=/usr/local -Dpkg_config_path=pkgconfig
 log_info "[3/4] Compiling with Ninja..."
 ninja -C build
 

@@ -2,6 +2,7 @@ workarea/
 out/
 build/
 *.patch
+!patches/gstreamer/*
 .cache/
 .cmake/
 .repoconfig
